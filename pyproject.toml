@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "stanislavglazko_generate_diff"
+version = "0.1.0"
+description = ""
+authors = ["stanislavglazko <stanislavglazko@gmail.com>"]
+packages = [
+  { include = "gendiff" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.7.9"
+
+
+[tool.poetry.scripts]
+gendiff = "gendiff.scripts.gendiff:main"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
