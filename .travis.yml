@@ -4,7 +4,6 @@ python: 3.7.4
 before_install:
   # make depends on poetry
   - pip install poetry
-  - pip install pytest-cov
 
 install:
   - make install
