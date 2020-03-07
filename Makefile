@@ -13,6 +13,6 @@ build: check
 	@poetry build
 
 run_test:
-	poetry run pytest --cov=gendiff tests/ --cov-report xml
+	poetry run pytest gendiff tests
 
 .PHONY: install test lint selfcheck check build
