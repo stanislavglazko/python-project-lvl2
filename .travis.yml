@@ -1,5 +1,5 @@
 language: python
-python: 3.6
+python: 3.7.4
 
 before_install:
   # make depends on poetry
@@ -8,5 +8,14 @@ before_install:
 install:
   - make install
 
-script:
-  - make check
+before_script:
+      - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      - chmod +x ./cc-test-reporter
+      - ./cc-test-reporter before-build
+
+      script: 
+      - make check
+      - make run_test
+
+      after_script: 
+      - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
