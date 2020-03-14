@@ -1,9 +1,20 @@
 import json
+import yaml
+
+
+def converting(source):
+    name = source.split('.')
+    name = name[-1]
+    if name == 'yml':
+        source = yaml.safe_load(open(source))
+    elif name == 'json':
+        source = json.load(open(source))
+    return source
 
 
 def generate_diff(source1, source2):
-    source1 = json.load(open(source1))
-    source2 = json.load(open(source2))
+    source1 = converting(source1)
+    source2 = converting(source2)
     common = sorted(list(source1.keys() & source2.keys()))
     only_before = sorted(list(source1.keys() - source2.keys()))
     only_after = sorted(list(source2.keys() - source1.keys()))
