@@ -5,3 +5,5 @@
 [![Build Status](https://travis-ci.org/stanislavglazko/python-project-lvl2.svg?branch=master)](https://travis-ci.org/stanislavglazko/python-project-lvl2)
 
 <a href="https://asciinema.org/a/D7GGaAsPDVFTYJt3zEWHOrcsd" target="_blank"><img src="https://asciinema.org/a/D7GGaAsPDVFTYJt3zEWHOrcsd.svg" /></a>
+
+<a href="https://asciinema.org/a/D7GGaAsPDVFTYJt3zEWHOrcsd" target="_blank"><img src="https://asciinema.org/a/D7GGaAsPDVFTYJt3zEWHOrcsd.svg" /></a>
