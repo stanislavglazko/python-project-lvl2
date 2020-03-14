@@ -1,6 +1,6 @@
 env:
   global:
-    - CC_TEST_REPORTER_ID=eb7881d9cd04bf2f0ede736f58f4154fa4f498eee4256bcfedb24ee20aed06e6
+    - CC_TEST_REPORTER_ID=b39fae579d0430dd3f380b33fcbeb3872bb6c99e79d3196899745ba045dcae8e
 
 language: python
 python: 3.7.4
