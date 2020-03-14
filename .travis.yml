@@ -17,5 +17,6 @@ script:
   - make check
   - make run_test
 
-after_script: 
+after_script:
+  - ./cc-test-reporter after-build -r --id eb7881d9cd04bf2f0ede736f58f4154fa4f498eee4256bcfedb24ee20aed06e6  
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
