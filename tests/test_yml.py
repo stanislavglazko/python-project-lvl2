@@ -21,3 +21,9 @@ def test_answer3_yml():
     fin = open('./tests/fixtures/answer3.txt', 'r')
     answer = fin.read()
     assert generate_diff('./tests/fixtures/before3.yml', './tests/fixtures/after3.yml') == answer
+
+
+def test_answer4_yml():
+    fin = open('./tests/fixtures/answer_complete_test.txt', 'r')
+    answer = fin.read()
+    assert generate_diff('./tests/fixtures/before_complete.yml', './tests/fixtures/after_complete.yml') == answer
