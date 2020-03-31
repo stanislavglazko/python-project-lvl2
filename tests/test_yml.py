@@ -27,3 +27,28 @@ def test_answer4_yml():
     fin = open('./tests/fixtures/answer_complete_test.txt', 'r')
     answer = fin.read()
     assert generate_diff('./tests/fixtures/before_complete.yml', './tests/fixtures/after_complete.yml') == answer
+
+
+def test_answer_plain():
+    fin = open('./tests/fixtures/answer_plain.txt', 'r')
+    answer = fin.read()
+    assert generate_diff('./tests/fixtures/before.yml', './tests/fixtures/after.yml', format='plain') == answer
+
+
+def test_answer2_plain():
+    fin = open('./tests/fixtures/answer2_plain.txt', 'r')
+    answer = fin.read()
+    assert generate_diff('./tests/fixtures/before2.yml', './tests/fixtures/after2.yml', format='plain') == answer
+
+
+def test_answer3_plain():
+    fin = open('./tests/fixtures/answer3_plain.txt', 'r')
+    answer = fin.read()
+    assert generate_diff('./tests/fixtures/before3.yml', './tests/fixtures/after3.yml', format='plain') == answer
+
+
+def test_answer4_plain():
+    fin = open('./tests/fixtures/plain_answer_complexe.txt', 'r')
+    answer = fin.read()
+    assert generate_diff('./tests/fixtures/before_complete.yml', './tests/fixtures/after_complete.yml',
+                         format='plain') == answer

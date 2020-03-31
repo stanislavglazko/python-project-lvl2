@@ -1,0 +1,3 @@
+Property 'host' was changed. From 'hexlet.io' to 'hexlet.org'
+Property 'proxy' was changed. From '123.234.53.22' to '123.234.53.23'
+Property 'timeout' was changed. From '50' to '20'

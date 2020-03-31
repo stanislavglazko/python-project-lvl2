@@ -1,5 +1,7 @@
 import json
 import yaml
+from gendiff.format.plain import plain
+from gendiff.format.rendering import rendering
 
 
 def converting(source):
@@ -32,24 +34,9 @@ def diff(source1, source2):
     return result
 
 
-def rendering(source, j=0):
-    result = '{' + '\n'
-    for i in list(source.keys()):
-        if isinstance(source[i], dict):
-            result += ('\t' * j) + i + ': ' + rendering(source[i], j+1) + '\n'
-        else:
-            if i[0] != ' ':
-                result += ('\t' * (j + 1)) + i + ': ' + str(source[i]) + '\n'
-            else:
-                result += ('\t' * j) + i + ': ' + str(source[i]) + '\n'
-    if result[-1] == '}':
-        result = result + '\n' + '}'
-    else:
-        result = result + ('\t' * j) + '}'
-    return result
-
-
-def generate_diff(source1, source2):
+def generate_diff(source1, source2, format=None):
     source1 = converting(source1)
     source2 = converting(source2)
+    if format == 'plain':
+        return plain(diff(source1, source2))[:-1]
     return rendering(diff(source1, source2))
