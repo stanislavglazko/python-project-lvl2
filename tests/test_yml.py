@@ -35,6 +35,18 @@ def test_answer_plain():
     assert generate_diff('./tests/fixtures/before.yml', './tests/fixtures/after.yml', format='plain') == answer
 
 
+def test_answer_json():
+    fin = open('./tests/fixtures/answer_make_json_complete.txt', 'r')
+    answer = fin.read()
+    assert generate_diff('./tests/fixtures/before_complete.yml', './tests/fixtures/after_complete.yml', format='json') == answer
+
+
+def test_answer2_json():
+    fin = open('./tests/fixtures/answer_make_json.txt', 'r')
+    answer = fin.read()
+    assert generate_diff('./tests/fixtures/before.yml', './tests/fixtures/after.yml', format='json') == answer
+
+
 def test_answer2_plain():
     fin = open('./tests/fixtures/answer2_plain.txt', 'r')
     answer = fin.read()
@@ -50,5 +62,4 @@ def test_answer3_plain():
 def test_answer4_plain():
     fin = open('./tests/fixtures/plain_answer_complexe.txt', 'r')
     answer = fin.read()
-    assert generate_diff('./tests/fixtures/before_complete.yml', './tests/fixtures/after_complete.yml',
-                         format='plain') == answer
+    assert generate_diff('./tests/fixtures/before_complete.yml', './tests/fixtures/after_complete.yml', format='plain') == answer

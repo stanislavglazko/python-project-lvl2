@@ -2,6 +2,7 @@ import json
 import yaml
 from gendiff.format.plain import plain
 from gendiff.format.rendering import rendering
+from gendiff.format.make_json import make_json
 
 
 def converting(source):
@@ -20,7 +21,7 @@ def diff(source1, source2):
     result = {}
     for i in common:
         if source1[i] == source2[i]:
-            result[('    ' + i)] = str(source1[i])
+            result[('    ' + i)] = source1[i]
         if source1[i] != source2[i]:
             if type(source1[i]) == dict and type(source2[i]) == dict:
                 result[('    ' + i)] = diff(source1[i], source2[i])
@@ -39,4 +40,6 @@ def generate_diff(source1, source2, format=None):
     source2 = converting(source2)
     if format == 'plain':
         return plain(diff(source1, source2))[:-1]
+    if format == 'json':
+        return make_json(diff(source1, source2))
     return rendering(diff(source1, source2))

@@ -51,3 +51,15 @@ def test_answer4_plain():
     fin = open('./tests/fixtures/plain_answer_complexe.txt', 'r')
     answer = fin.read()
     assert generate_diff('./tests/fixtures/before_complete.json', './tests/fixtures/after_complete.json', format='plain') == answer
+
+
+def test_answer_json():
+    fin = open('./tests/fixtures/answer_make_json_complete.txt', 'r')
+    answer = fin.read()
+    assert generate_diff('./tests/fixtures/before_complete.json', './tests/fixtures/after_complete.json', format='json') == answer
+
+
+def test_answer2_json():
+    fin = open('./tests/fixtures/answer_make_json.txt', 'r')
+    answer = fin.read()
+    assert generate_diff('./tests/fixtures/before.json', './tests/fixtures/after.json', format='json') == answer
