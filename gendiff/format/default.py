@@ -13,7 +13,8 @@ def format(source, j=0):
     result = '{' + '\n'
     for key, item in tuple(sorted(source.items())):
         if isinstance(item, dict):
-            result += ('    ' * (j + 1)) + key + ': ' + format(item, j+1) + '\n'
+            result += ('    ' * (j + 1)) + key + ': '
+            result += format(item, j+1) + '\n'
         else:
             if item[0] == CHANGED:
                 old, new = item[1]

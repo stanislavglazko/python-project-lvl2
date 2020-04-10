@@ -1,6 +1,6 @@
 from gendiff.difference_calculator import load
 from gendiff.difference_calculator import diff
-import gendiff.format
+from gendiff import format
 
 
 def generate_diff(source1, source2, name=None):
