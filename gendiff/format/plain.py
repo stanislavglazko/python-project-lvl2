@@ -1,38 +1,22 @@
-def plain(source, j=''):
+ADDED, REMOVED, CHANGED, COMMON = 'added', 'removed', 'changed', 'common'
+
+
+def format(source, j=''):
+    keys = {ADDED, REMOVED, CHANGED}
     result = ''
-    keys_list = list(source.keys())
-    for i in keys_list:
-        if i[2] == ' ':
-            if isinstance(source[i], dict):
-                result = result + plain(source[i], j=j+str(i[4:]) + '.')
-        elif i[2] == '-':
-            analog = '  + ' + i[4:]
-            if (analog) in keys_list:
-                result += "Property '" + str(j) + i[4:] +\
-                          "' was changed." + "From '" +\
-                          str(source[i]) + "' to '" +\
-                          str(source[analog]) + "'" + '\n'
-                analog = keys_list.index(analog)
-                keys_list.pop(analog)
-            else:
-                result += "Property '" + str(j) + i[4:] +\
-                          "' was removed" + '\n'
-        elif i[2] == '+':
-            if isinstance(source[i], dict):
-                result += "Property '" + str(j) + i[4:] +\
-                          "' was added with value: " +\
-                          "'complex value'" + '\n'
-            else:
-                analog = '  - ' + i[4:]
-                if (analog) in keys_list:
-                    result += "Property '" + str(j) + i[4:] +\
-                              "' was changed." + " From '" +\
-                              str(source[analog]) + "' to '" +\
-                              str(source[i]) + "'" + '\n'
-                    analog = keys_list.index(analog)
-                    keys_list.pop(analog)
+    for key, item in tuple(sorted(source.items())):
+        if isinstance(item, dict):
+            result += format(item, j=(j+key+'.'))
+        elif item[0] in keys:
+            result += "Property '{}{}' was {}".format(str(j), key, item[0])
+            if item[0] == CHANGED:
+                old, new = item[1]
+                result += ". From '{}' to '{}'\n".format(str(old), str(new))
+            elif item[0] == ADDED:
+                if isinstance(item[1], dict):
+                    result += " with value: 'complex value'" + '\n'
                 else:
-                    result += "Property '" + str(j) + i[4:] +\
-                              "' was added with value: " +\
-                              "'" + str(source[i]) + "'" + '\n'
+                    result += " with value: '{}'\n".format(str(item[1]))
+            elif item[0] == REMOVED:
+                result += '\n'
     return result

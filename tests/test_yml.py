@@ -1,65 +1,20 @@
+from gendiff import generate_diff
 import json
 import yaml
 import pytest
-from gendiff.generate_diff import generate_diff
-from gendiff.generate_diff import converting
 
 
-def test_answer_yml():
-    fin = open('./tests/fixtures/answer.txt', 'r')
-    answer = fin.read()
-    assert generate_diff('./tests/fixtures/before.yml','./tests/fixtures/after.yml') == answer
-
-
-def test_answer2_yml():
-    fin = open('./tests/fixtures/answer2.txt', 'r')
-    answer = fin.read()
-    assert generate_diff('./tests/fixtures/before2.yml', './tests/fixtures/after2.yml') == answer
-
-
-def test_answer3_yml():
-    fin = open('./tests/fixtures/answer3.txt', 'r')
-    answer = fin.read()
-    assert generate_diff('./tests/fixtures/before3.yml', './tests/fixtures/after3.yml') == answer
-
-
-def test_answer4_yml():
-    fin = open('./tests/fixtures/answer_complete_test.txt', 'r')
-    answer = fin.read()
-    assert generate_diff('./tests/fixtures/before_complete.yml', './tests/fixtures/after_complete.yml') == answer
-
-
-def test_answer_plain():
-    fin = open('./tests/fixtures/answer_plain.txt', 'r')
-    answer = fin.read()
-    assert generate_diff('./tests/fixtures/before.yml', './tests/fixtures/after.yml', format='plain') == answer
-
-
-def test_answer_json():
-    fin = open('./tests/fixtures/answer_make_json_complete.txt', 'r')
-    answer = fin.read()
-    assert generate_diff('./tests/fixtures/before_complete.yml', './tests/fixtures/after_complete.yml', format='json') == answer
-
-
-def test_answer2_json():
-    fin = open('./tests/fixtures/answer_make_json.txt', 'r')
-    answer = fin.read()
-    assert generate_diff('./tests/fixtures/before.yml', './tests/fixtures/after.yml', format='json') == answer
-
-
-def test_answer2_plain():
-    fin = open('./tests/fixtures/answer2_plain.txt', 'r')
-    answer = fin.read()
-    assert generate_diff('./tests/fixtures/before2.yml', './tests/fixtures/after2.yml', format='plain') == answer
-
-
-def test_answer3_plain():
-    fin = open('./tests/fixtures/answer3_plain.txt', 'r')
-    answer = fin.read()
-    assert generate_diff('./tests/fixtures/before3.yml', './tests/fixtures/after3.yml', format='plain') == answer
-
-
-def test_answer4_plain():
-    fin = open('./tests/fixtures/plain_answer_complexe.txt', 'r')
-    answer = fin.read()
-    assert generate_diff('./tests/fixtures/before_complete.yml', './tests/fixtures/after_complete.yml', format='plain') == answer
+def test_yml():
+    place = './tests/fixtures/'
+    answers = {
+        'answer.txt': ('before.yml', 'after.yml', 'None'),
+        'answer2.txt': ('before2.yml', 'after2.yml', 'None'),
+        'answer3.txt': ('before3.yml', 'after3.yml', 'None'),
+        'answer4.txt': ('before_complete.yml', 'after_complete.yml', 'None'),
+        'answer_plain.txt': ('before.yml', 'after.yml', 'plain'),
+        'plain_answer_complexe.txt': ('before_complete.yml', 'after_complete.yml', 'plain'),
+    }
+    for key, item in answers.items():
+        with open(place + key) as file:
+            answer = file.read()
+        assert generate_diff(place+item[0], place+item[1], item[2]) == answer
