@@ -17,35 +17,36 @@ def keys(source1, source2):
     return common, only_before, only_after
 
 
-def common(source1, source2):
+def common1(source1, source2):
     source = keys(source1, source2)[0]
     result = {}
     for i in source:
         if source1[i] == source2[i]:
             result[i] = ('common', source1[i])
-        elif source1[i] != source2[i]:
-            if type(source1[i]) == dict and type(source2[i]) == dict:
+    return result
+
+
+def common2(source1, source2):
+    source = keys(source1, source2)[0]
+    result = common1(source1, source2)
+    for i in source:
+        if source1[i] != source2[i]:
+            if isinstance(source1[i], dict) and isinstance(source2[i], dict):
                 result[i] = diff(source1[i], source2[i])
             else:
                 result[i] = ('changed', (source1[i], source2[i]))
     return result
 
 
-def before(source1, source2):
-    source = keys(source1, source2)[1]
-    result = common(source1, source2)
-    for i in source:
+def before_after(source1, source2):
+    before, after = keys(source1, source2)[1], keys(source1, source2)[2]
+    result = common2(source1, source2)
+    for i in before:
         result[i] = ('removed', source1[i])
-    return result
-
-
-def after(source1, source2):
-    source = keys(source1, source2)[2]
-    result = before(source1, source2)
-    for i in source:
+    for i in after:
         result[i] = ('added', source2[i])
     return result
 
 
 def diff(source1, source2):
-    return after(source1, source2)
+    return before_after(source1, source2)
