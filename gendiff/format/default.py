@@ -9,10 +9,10 @@ def packing_dict(source, j):
     return result
 
 
-def adding_dict(operator, key, item, number):
-    result = ('    ' * number) + operator + key + ': '
+def adding_dict(operator, key, item, j):
+    result = ('    ' * j) + operator + key + ': '
     if isinstance(item, dict):
-        result += packing_dict(item, number + 1)
+        result += packing_dict(item, j + 1)
     else:
         result += str(item) + '\n'
     return result
