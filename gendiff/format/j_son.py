@@ -2,4 +2,5 @@ import json
 
 
 def format(source):
-    return json.dumps(source, indent=2)
+    sorted_diff = {k: source[k] for k in sorted(source)}
+    return json.dumps(sorted_diff, indent=2)

@@ -13,6 +13,7 @@ def test_json():
         'answer4.txt': ('before_complete.json', 'after_complete.json', 'None'),
         'answer_plain.txt': ('before.json', 'after.json', 'plain'),
         'plain_answer_complexe.txt': ('before_complete.json', 'after_complete.json', 'plain'),
+        'answer_json.txt': ('before.json', 'after.json', 'json'),
     }
     for key, item in answers.items():
         with open(place + key) as file:

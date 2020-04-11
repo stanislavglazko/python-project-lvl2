@@ -3,16 +3,16 @@
     "common",
     "hexlet.io"
   ],
+  "proxy": [
+    "removed",
+    "123.234.53.22"
+  ],
   "timeout": [
     "changed",
     [
       50,
       20
     ]
-  ],
-  "proxy": [
-    "removed",
-    "123.234.53.22"
   ],
   "verbose": [
     "added",
