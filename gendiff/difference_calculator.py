@@ -27,9 +27,8 @@ def common1(source1, source2):
 
 
 def common2(source1, source2):
-    source = keys(source1, source2)[0]
     result = common1(source1, source2)
-    for i in source:
+    for i in keys(source1, source2)[0]:
         if source1[i] != source2[i]:
             if isinstance(source1[i], dict) and isinstance(source2[i], dict):
                 result[i] = diff(source1[i], source2[i])

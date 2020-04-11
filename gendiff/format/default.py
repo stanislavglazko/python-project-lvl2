@@ -9,6 +9,11 @@ def packing_dict(source, j):
     return result
 
 
+def adding(number, operator, key):
+    result = ('    ' * number) + operator + key + ': '
+    return result
+
+
 def format(source, j=0):
     result = '{' + '\n'
     for key, item in tuple(sorted(source.items())):
@@ -18,27 +23,23 @@ def format(source, j=0):
         else:
             if item[0] == CHANGED:
                 old, new = item[1]
-                result += ('    ' * j) + '  + ' + key + ': '
+                result += adding(j, '  + ', key)
                 if isinstance(new, dict):
                     result += packing_dict(new, j+1)
                 else:
                     result += str(new) + '\n'
-                result = result + ('    ' * j) + '  - ' + key + ': '
+                result += adding(j, '  - ', key)
                 if isinstance(old, dict):
                     result += packing_dict(old, j+1)
                 else:
                     result += str(old) + '\n'
-            elif item[0] == ADDED or item[0] == REMOVED:
-                if item[0] == ADDED:
-                    result += ('    ' * j) + '  + ' + key + ': '
-                if item[0] == REMOVED:
-                    result += ('    ' * j) + '  - ' + key + ': '
-                if isinstance(item[1], dict):
-                    result += packing_dict(item[1], j+1)
-                else:
-                    result += str(item[1]) + '\n'
             else:
-                result += ('    ' * j) + '    ' + key + ': '
+                if item[0] == ADDED:
+                    result += adding(j, '  + ', key)
+                elif item[0] == REMOVED:
+                    result += adding(j, '  - ', key)
+                elif item[0] == COMMON:
+                    result += adding(j, '    ', key)
                 if isinstance(item[1], dict):
                     result += packing_dict(item[1], j+1)
                 else:
