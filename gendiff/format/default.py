@@ -28,14 +28,11 @@ def format(source, j=0):
                     result += packing_dict(old, j+1)
                 else:
                     result += str(old) + '\n'
-            elif item[0] == ADDED:
-                result += ('    ' * j) + '  + ' + key + ': '
-                if isinstance(item[1], dict):
-                    result += packing_dict(item[1], j+1)
-                else:
-                    result += str(item[1]) + '\n'
-            elif item[0] == REMOVED:
-                result += ('    ' * j) + '  - ' + key + ': '
+            elif item[0] == ADDED or item[0] == REMOVED:
+                if item[0] == ADDED:
+                    result += ('    ' * j) + '  + ' + key + ': '
+                if item[0] == REMOVED:
+                    result += ('    ' * j) + '  - ' + key + ': '
                 if isinstance(item[1], dict):
                     result += packing_dict(item[1], j+1)
                 else:
