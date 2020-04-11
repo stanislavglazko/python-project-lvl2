@@ -9,8 +9,28 @@ def packing_dict(source, j):
     return result
 
 
-def adding(number, operator, key):
+def adding_dict(operator, key, item, number):
     result = ('    ' * number) + operator + key + ': '
+    if isinstance(item, dict):
+        result += packing_dict(item, number + 1)
+    else:
+        result += str(item) + '\n'
+    return result
+
+
+def final_packing(item1, item2, key, j):
+    result = ''
+    if item1 == CHANGED:
+        old, new = item2
+        result += adding_dict('  + ', key, new, j)
+        result += adding_dict('  - ', key, old, j)
+    else:
+        if item1 == ADDED:
+            result += adding_dict('  + ', key, item2, j)
+        elif item1 == REMOVED:
+            result += adding_dict('  - ', key, item2, j)
+        elif item1 == COMMON:
+            result += adding_dict('    ', key, item2, j)
     return result
 
 
@@ -21,29 +41,7 @@ def format(source, j=0):
             result += ('    ' * (j + 1)) + key + ': '
             result += format(item, j+1) + '\n'
         else:
-            if item[0] == CHANGED:
-                old, new = item[1]
-                result += adding(j, '  + ', key)
-                if isinstance(new, dict):
-                    result += packing_dict(new, j+1)
-                else:
-                    result += str(new) + '\n'
-                result += adding(j, '  - ', key)
-                if isinstance(old, dict):
-                    result += packing_dict(old, j+1)
-                else:
-                    result += str(old) + '\n'
-            else:
-                if item[0] == ADDED:
-                    result += adding(j, '  + ', key)
-                elif item[0] == REMOVED:
-                    result += adding(j, '  - ', key)
-                elif item[0] == COMMON:
-                    result += adding(j, '    ', key)
-                if isinstance(item[1], dict):
-                    result += packing_dict(item[1], j+1)
-                else:
-                    result += str(item[1]) + '\n'
+            result += final_packing(item[0], item[1], key, j)
     if result[-1] != '}':
         result = result + ('    ' * j) + '}'
     else:
