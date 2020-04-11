@@ -13,7 +13,7 @@ def test_yml():
         'answer4.txt': ('before_complete.yml', 'after_complete.yml', 'None'),
         'answer_plain.txt': ('before.yml', 'after.yml', 'plain'),
         'plain_answer_complexe.txt': ('before_complete.yml', 'after_complete.yml', 'plain'),
-        'answer_json.txt': ('before.json', 'after.json', 'json'),
+        'answer_json.txt': ('before.yml', 'after.yml', 'json'),
     }
     for key, item in answers.items():
         with open(place + key) as file:
