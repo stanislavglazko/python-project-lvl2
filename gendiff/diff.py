@@ -10,7 +10,9 @@ def load(source):
     _, type = os.path.splitext(source)
     if type == '.json' or type == '.JSON':
         return json.load(open(source))
-    return yaml.safe_load(open(source))
+    elif type == '.yml' or type == '.yaml' or type == '.YML':
+        return yaml.safe_load(open(source))
+    return False
 
 
 def generate(source1, source2):
