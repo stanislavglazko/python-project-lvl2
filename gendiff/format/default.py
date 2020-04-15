@@ -1,4 +1,4 @@
-ADDED, REMOVED, CHANGED, COMMON = 'added', 'removed', 'changed', 'common'
+from gendiff.diff import ADDED, REMOVED, CHANGED, COMMON
 
 
 def packing_dict(source, j):

@@ -1,4 +1,4 @@
-ADDED, REMOVED, CHANGED, COMMON = 'added', 'removed', 'changed', 'common'
+from gendiff.diff import ADDED, REMOVED, CHANGED
 
 
 def format(source, j=''):
@@ -8,15 +8,17 @@ def format(source, j=''):
         if isinstance(item, dict):
             result += format(item, j=(j+key+'.'))
         elif item[0] in keys:
-            result += "Property '{}{}' was {}".format(str(j), key, item[0])
-            if item[0] == CHANGED:
-                old, new = item[1]
-                result += ". From '{}' to '{}'\n".format(str(old), str(new))
-            elif item[0] == ADDED:
-                if isinstance(item[1], dict):
+            status = item[0]
+            value = item[1]
+            result += "Property '{}{}' was {}".format(j, key, status)
+            if status == CHANGED:
+                old, new = value
+                result += ". From '{}' to '{}'\n".format(old, new)
+            elif status == ADDED:
+                if isinstance(value, dict):
                     result += " with value: 'complex value'" + '\n'
                 else:
-                    result += " with value: '{}'\n".format(str(item[1]))
-            elif item[0] == REMOVED:
+                    result += " with value: '{}'\n".format(value)
+            elif status == REMOVED:
                 result += '\n'
     return result

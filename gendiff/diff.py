@@ -3,6 +3,9 @@ import yaml
 import os
 
 
+ADDED, REMOVED, CHANGED, COMMON = 'added', 'removed', 'changed', 'common'
+
+
 def load(source):
     _, type = os.path.splitext(source)
     if type == '.json' or type == '.JSON':
@@ -19,16 +22,16 @@ def generate(source1, source2):
         source1_item = source1[key]
         source2_item = source2[key]
         if source1_item == source2_item:
-            result[key] = ('common', source1_item)
+            result[key] = (COMMON, source1_item)
         else:
             if type(source1_item) == dict and type(source2_item) == dict:
                 result[key] = generate(source1_item, source2_item)
             else:
-                result[key] = ('changed', (source1_item, source2_item))
+                result[key] = (CHANGED, (source1_item, source2_item))
     for key in only_before:
         source1_item = source1[key]
-        result[key] = ('removed', source1_item)
+        result[key] = (REMOVED, source1_item)
     for key in only_after:
         source2_item = source2[key]
-        result[key] = ('added', source2_item)
+        result[key] = (ADDED, source2_item)
     return result
