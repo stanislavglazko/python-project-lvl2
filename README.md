@@ -5,7 +5,7 @@
 
 [![Build Status](https://travis-ci.org/stanislavglazko/python-project-lvl2.svg?branch=master)](https://travis-ci.org/stanislavglazko/python-project-lvl2)
 
-        You can compare two files and get the difference between them
+You can compare two files and get the difference between them
 
 JSON vs JSON
 
