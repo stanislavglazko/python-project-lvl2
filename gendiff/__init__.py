@@ -6,7 +6,7 @@ from gendiff import format
 def generate_diff(source1, source2, name=None):
     source1 = load(source1)
     source2 = load(source2)
-    if source1 is not False and source2 is not False:
+    if source1 is not None and source2 is not None:
         if name == format.PLAIN:
             return format.plain(generate(source1, source2))[:-1]
         elif name == format.JSON:

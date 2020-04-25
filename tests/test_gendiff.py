@@ -28,14 +28,14 @@ check = {
 
 def test_default_plain():
     for key, item in check.items():
-        with open(os.path.join(place, key)) as file:
-            result = file.read()
         file_json_before = item[0]
         file_json_after = item[1]
         format_json = item[2]
         file_yml_before = item[3]
         file_yml_after = item[4]
         format_yml = item[5]
+        with open(os.path.join(place, key)) as file:
+            result = file.read()
         assert generate_diff(os.path.join(place, file_json_before),
                              os.path.join(place, file_json_after), format_json) == result
         assert generate_diff(os.path.join(place, file_yml_before),

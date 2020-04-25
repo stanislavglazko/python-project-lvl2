@@ -1,7 +1,7 @@
-from gendiff.diff import ADDED, REMOVED, CHANGED, COMMON
+from gendiff import diff
 
 
-def packing_dict(source, j):
+def pack_dict(source, j):
     result = '{' + '\n'
     result += '    ' * (j + 1) + str(list(source.keys())[0]) + ': '
     result += str(list(source.values())[0])
@@ -9,39 +9,39 @@ def packing_dict(source, j):
     return result
 
 
-def adding_dict(operator, key, item, j):
+def add_dict(operator, key, item, j):
     result = ('    ' * j) + operator + key + ': '
     if isinstance(item, dict):
-        result += packing_dict(item, j + 1)
+        result += pack_dict(item, j + 1)
     else:
         result += str(item) + '\n'
     return result
 
 
-def final_packing(item1, item2, key, j):
+def final_pack(item1, item2, key, j):
     result = ''
-    if item1 == CHANGED:
+    if item1 == diff.CHANGED:
         old, new = item2
-        result += adding_dict('  + ', key, new, j)
-        result += adding_dict('  - ', key, old, j)
+        result += add_dict('  + ', key, new, j)
+        result += add_dict('  - ', key, old, j)
     else:
-        if item1 == ADDED:
-            result += adding_dict('  + ', key, item2, j)
-        elif item1 == REMOVED:
-            result += adding_dict('  - ', key, item2, j)
-        elif item1 == COMMON:
-            result += adding_dict('    ', key, item2, j)
+        if item1 == diff.ADDED:
+            result += add_dict('  + ', key, item2, j)
+        elif item1 == diff.REMOVED:
+            result += add_dict('  - ', key, item2, j)
+        elif item1 == diff.COMMON:
+            result += add_dict('    ', key, item2, j)
     return result
 
 
 def format(source, j=0):
     result = '{' + '\n'
     for key, item in tuple(sorted(source.items())):
-        if isinstance(item, dict):
+        if item[0] == diff.NESTED:
             result += ('    ' * (j + 1)) + key + ': '
-            result += format(item, j+1) + '\n'
+            result += format(item[1], j+1) + '\n'
         else:
-            result += final_packing(item[0], item[1], key, j)
+            result += final_pack(item[0], item[1], key, j)
     if result[-1] != '}':
         result = result + ('    ' * j) + '}'
     else:

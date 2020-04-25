@@ -3,7 +3,8 @@ import yaml
 import os
 
 
-ADDED, REMOVED, CHANGED, COMMON = 'added', 'removed', 'changed', 'common'
+ADDED, REMOVED, CHANGED = 'added', 'removed', 'changed'
+COMMON, NESTED = 'common', 'nested'
 
 
 def load(source):
@@ -12,7 +13,7 @@ def load(source):
         return json.load(open(source))
     elif type == '.yml' or type == '.yaml' or type == '.YML':
         return yaml.safe_load(open(source))
-    return False
+    return None
 
 
 def generate(source1, source2):
@@ -27,7 +28,7 @@ def generate(source1, source2):
             result[key] = (COMMON, source1_item)
         else:
             if type(source1_item) == dict and type(source2_item) == dict:
-                result[key] = generate(source1_item, source2_item)
+                result[key] = (NESTED, generate(source1_item, source2_item))
             else:
                 result[key] = (CHANGED, (source1_item, source2_item))
     for key in only_before:
