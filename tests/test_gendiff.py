@@ -4,6 +4,7 @@ import yaml
 import pytest
 import os
 from gendiff.format import DEFAULT, PLAIN, JSON
+import tempfile
 
 
 place = './tests/fixtures/'
@@ -43,14 +44,18 @@ def test_default_plain():
 
 
 def test_json():
-    check = json.load(open(os.path.join(place,'test_answer_json.json')))
-    check_json = generate_diff(os.path.join(place,'before.json'), os.path.join(place, 'after.json'), JSON)
-    with open("new.json", "w") as file:
-        file.write(check_json)
-    check_json = json.load(open('new.json'))
-    check_yml = generate_diff(os.path.join(place,'before.yml'), os.path.join(place, 'after.yml'), JSON)
-    with open("new2.json", "w") as file:
-        file.write(check_yml)
-    check_yml = json.load(open('new2.json'))
+    check = json.load(open(os.path.join(place, 'test_answer_json.json')))
+    check_json = generate_diff(os.path.join(place, 'before.json'), os.path.join(place, 'after.json'), JSON)
+    check_yml = generate_diff(os.path.join(place, 'before.yml'), os.path.join(place, 'after.yml'), JSON)
+    with tempfile.TemporaryDirectory() as temp:
+        with open(os.path.join(temp, '1.json'), 'w') as f:
+            f.write(check_json)
+        with open(os.path.join(temp, '1.json'), 'r') as f:
+            check_json = json.load(f)
+    with tempfile.TemporaryDirectory() as temp:
+        with open(os.path.join(temp, '2.json'), 'w') as f:
+            f.write(check_yml)
+        with open(os.path.join(temp, '2.json'), 'r') as f:
+            check_yml = json.load(f)
     assert check == check_json
     assert check == check_yml
