@@ -46,7 +46,6 @@ def test_default_plain():
 def test_json():
     with open(os.path.join(place, 'test_answer_json.json')) as f:
         check = json.load(f)
-    check = json.load(open(os.path.join(place, 'test_answer_json.json')))
     check_json = generate_diff(os.path.join(place, 'before.json'), os.path.join(place, 'after.json'), JSON)
     check_yml = generate_diff(os.path.join(place, 'before.yml'), os.path.join(place, 'after.yml'), JSON)
     assert check == json.loads(check_json)
